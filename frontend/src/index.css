@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  margin:0;
+  padding:0;
+}
+.background-sign{
+  background-image: url('./assets/ls_bg.jpg');
+  background-size: cover; 
+}
+.background-spice{
+  background-image: url('./assets/spice_bg.jpg');
+  background-size: cover;
+}
+
+
+.heading-main{
+  font-family: 'Salsa',cursive;
+}
+
+.heading-sub{
+  font-family:"Poppins",sans-serif;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght'400,
+  'GRAD' 0,
+  'opsz' 24
+}
