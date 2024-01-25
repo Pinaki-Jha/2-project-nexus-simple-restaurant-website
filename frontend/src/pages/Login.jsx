@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./Header";
-import { Link } from "react-router-dom";
+import {decodeToken} from "react-jwt"
+import { Link, useNavigate } from "react-router-dom";
 
 function Login(){
 
@@ -8,6 +9,20 @@ function Login(){
     const [password,setPassword] = useState("")
     const [passVis,setPassVis] = useState("password")
     const [message, setMessage] = useState("")
+
+    const navigateTo = useNavigate()
+
+    useEffect(()=>{
+        const token = localStorage.getItem("spiceSymphonyToken")
+        if(token){
+            const user = decodeToken(token)
+            if(user){
+                navigateTo("/")
+            }
+        }
+        
+    },[])
+
 
     const togglePassVis = () =>{
         if(passVis=="password"){
@@ -35,7 +50,7 @@ function Login(){
             const data = await response.json()
             setMessage(data.message)
             if(data.user){
-                localStorage.setItem("cornellNotesToken",data.user)
+                localStorage.setItem("spiceSymphonyToken",data.user)
                 location.href = "/"
             }
         

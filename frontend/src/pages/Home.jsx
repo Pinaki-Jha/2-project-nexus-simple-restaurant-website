@@ -1,7 +1,28 @@
 import Header from "./Header"
 import spiceMeetsSymphonyImage from "../assets/where_spice_meets_symphony.jpg"
+import { useEffect } from "react"
+import { decodeToken } from "react-jwt";
+import { useNavigate } from "react-router-dom";
+
 
 function Home(){
+
+    const navigateTo = useNavigate()
+
+    useEffect(()=>{
+        const token = localStorage.getItem("spiceSymphonyToken")
+        if(token){
+            const user = decodeToken(token)
+            if(!user){
+                localStorage.removeItem("spiceSymphonyToken")
+                navigateTo("/login")
+            }
+        }else{
+            navigateTo("/login")
+        }
+        
+    },[])
+
     return(
         <div>
             <div className="min-h-screen py-4 background-sign">

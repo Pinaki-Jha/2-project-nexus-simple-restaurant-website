@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./Header";
-import { Link } from "react-router-dom";
+import{decodeToken} from "react-jwt"
+import { Link, useNavigate } from "react-router-dom";
 
 function Register(){
 
@@ -10,6 +11,20 @@ function Register(){
     const [confirmPass, setConfirmPass] = useState("")
     const [passVis,setPassVis] = useState("password")
     const [message, setMessage] = useState("")
+
+    const navigateTo = useNavigate()
+
+    useEffect(()=>{
+        const token = localStorage.getItem("spiceSymphonyToken")
+        if(token){
+            const user = decodeToken(token)
+            if(user){
+                navigateTo("/")
+            }
+        }
+        
+    },[])
+
 
     const togglePassVis = () =>{
         if(passVis=="password"){
